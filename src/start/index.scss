@@ -53,4 +53,39 @@ app-start-page {
     .nav-item + .nav-item {
         margin-left: 20px;
     }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .categories {
+        display: flex;
+    }
+
+    .category {
+        width: 300px;
+        height: 350px;
+        border-radius: 12px;
+        background-color: #e0f7fa;
+        cursor: pointer;
+        padding: 16px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            box-shadow: -1px 1px 7px -1px rgba(34, 60, 80, 0.2);
+        }
+
+        .text {
+            font-size: 64px;
+            line-height: 72px;
+        }
+    }
+
+    .category + .category {
+        margin-left: 20px;
+    }
 }
