@@ -1,0 +1,56 @@
+app-start-page {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+
+    header {
+        height: 80px;
+        border-bottom: 1px solid #ddd;
+        padding: 8px 12px;
+        display: flex;
+    }
+
+    .container {
+        flex-grow: 1;
+    }
+
+    footer {
+        height: 100px;
+        background-color: aliceblue;
+        padding: 16px 20px;
+        display: flex;
+    }
+
+    .logo {
+        height: 64px;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        margin-left: 40px;
+    }
+
+    .nav-item {
+        font-size: 24px;
+        line-height: 80px;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &.active {
+            cursor: default;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    }
+
+    .nav-item + .nav-item {
+        margin-left: 20px;
+    }
+}
