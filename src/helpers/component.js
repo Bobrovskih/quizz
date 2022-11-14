@@ -17,5 +17,9 @@ export class Component {
 
   render(appendTo) {
     document.querySelector(appendTo).innerHTML = this._template;
+
+    if (typeof this.onMounted === 'function') {
+      this.onMounted();
+    } 
   }
 }
