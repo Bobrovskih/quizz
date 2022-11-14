@@ -2,6 +2,7 @@ export class Component {
   constructor(options) {
     this._state = options.state || {};
     this._template = options.template;
+    this._$root;
   }
 
   set state(patch) {
@@ -16,10 +17,19 @@ export class Component {
   }
 
   render(appendTo) {
-    document.querySelector(appendTo).innerHTML = this._template;
+    this._$root = document.querySelector(appendTo);
+    this._$root.innerHTML = this._template;
 
     if (typeof this.onMounted === 'function') {
       this.onMounted();
-    } 
+    }
+  }
+  
+  query(selector) {
+    return this._$root.querySelector(selector);
+  }
+
+  queryAll(selector) {
+    return this._$root.querySelectorAll(selector);
   }
 }
