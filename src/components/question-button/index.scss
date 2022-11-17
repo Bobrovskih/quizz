@@ -4,4 +4,8 @@
   flex-grow: 1;
   color: white;
   text-align: center;
+
+  &.active {
+    background-color: #00be8e;
+  }
 }

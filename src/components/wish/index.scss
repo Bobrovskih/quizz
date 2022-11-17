@@ -1,0 +1,22 @@
+.wish-component {
+  display: flex;
+
+  .image {
+    width: 200px;
+    border-radius: 12px;
+  }
+
+  .content {
+    display: flex;
+    flex-flow: column;
+    margin-left: 20px;
+    width: 100%;
+  }
+
+  .name {
+    padding-bottom: 20px;
+    font-size: 28px;
+    line-height: 36px;
+    border-bottom: 1px solid #ddd;
+  }
+}
