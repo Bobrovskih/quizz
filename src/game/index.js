@@ -6,6 +6,8 @@ import { birdsData } from '../constants/birds-data';
 import { WishComponent } from '../components/wish';
 import { AnswerComponent } from '../components/answer';
 import { AnswerStatus } from './constants';
+import { SelectedAnswerComponent } from '../components/selected-answer';
+import birdPlaceholder from '../assets/bird-placeholder.jpg';
 
 export class GamePage extends Component {
   constructor() {
@@ -16,6 +18,8 @@ export class GamePage extends Component {
       questions: birdsData[0],
       wishIndex: 0,
       wish: null,
+      selectedIndex: null,
+      isGuessed: false,
     };
   }
 
@@ -23,14 +27,20 @@ export class GamePage extends Component {
     this.$questions = this.query('.questions');
     this.$wish = this.query('.wish');
     this.$answers = this.query('.answers');
+    this.$selectedAnswer = this.query('.selected-answer');
     this.$next = this.query('.next');
 
     this.createQuestionButtons();
-
     this.createWish();
     this.createAnswers();
+    this.createSelectedAnswerStub();
 
     console.log('this.state', this.state);
+  }
+
+  onUpdated() {
+    console.log('onUpdated game');
+    this.$next.toggleAttribute('disabled', !this.state.isGuessed);
   }
 
   createQuestionButtons() {
@@ -57,7 +67,11 @@ export class GamePage extends Component {
     };
 
     this.wish = new WishComponent();
-    this.wish.state = this.state.wish;
+    this.wish.state = {
+      audio: this.state.wish.audio,
+      image: birdPlaceholder,
+      name: '******',
+    };
     this.wish.render(this.$wish);
   }
 
@@ -71,14 +85,30 @@ export class GamePage extends Component {
         index,
       };
       component.on('click', (event) => {
-        // do check if answer == wish
-        component.state = {
-          status: AnswerStatus.OK,
-        };
+        this.onAnswerClick(event);
       });
       component.render(this.$answers);
       this.answers.push(component);
     });
+  }
+
+  createSelectedAnswerStub() {
+    this.$selectedAnswer.innerHTML = `
+      <div>Послушайте плеер.</div>
+      <div>Выберите птицу из списка.</div>
+    `;
+  }
+
+  resetSelectedAnswerStub() {
+    this.$selectedAnswer.innerHTML = '';
+  }
+
+  createSelectedAnswer() {
+    this.selectedAnswer = new SelectedAnswerComponent();
+    this.selectedAnswer.state = {
+      answer: this.state.questions.data[this.state.selectedIndex],
+    };
+    this.selectedAnswer.render(this.$selectedAnswer);
   }
 
   generateWish() {
@@ -88,5 +118,28 @@ export class GamePage extends Component {
 
   getWish(wishIndex) {
     return this.state.questions.data[wishIndex];
+  }
+
+  onAnswerClick(event) {
+    this.state.selectedIndex = event.index;
+    const answerComponent  = this.answers[this.state.selectedIndex];
+    const isGuessed = this.getIsGuessed();
+
+    this.resetSelectedAnswerStub();
+    this.createSelectedAnswer();
+
+    if (!this.state.isGuessed) {
+      this.state = {
+        isGuessed,
+      };
+
+      answerComponent.state = {
+        status: isGuessed ? AnswerStatus.OK : AnswerStatus.FAILED,
+      };
+    }
+  }
+
+  getIsGuessed() {
+    return this.state.selectedIndex === this.state.wishIndex;
   }
 }

@@ -1,0 +1,36 @@
+.selected-answer-component {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 16px;
+
+  .row {
+    display: flex;
+    width: 100%;
+  }
+
+  .image {
+    width: 200px;
+    border-radius: 12px;
+  }
+
+  .content {
+    flex-grow: 1;
+    margin-left: 12px;
+  }
+
+  .name {
+    font-size: 22px;
+  }
+
+  .description {
+    width: 100%;
+    margin-top: 22px;
+  }
+
+
+  .delimiter {
+    margin: 10px 0;
+    height: 2px;
+    background-color: #ddd;
+  }
+}

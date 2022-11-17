@@ -1,4 +1,3 @@
-import { AnswerStatus } from '../../game/constants';
 import { Component } from '../../helpers/component';
 import './index.scss';
 import template from './template.html';
@@ -18,13 +17,12 @@ export class AnswerComponent extends Component {
   }
 
   onUpdated() {
+    console.log('onUpdated', this.state);
     this.$status.classList.add(this.state.status);
     this.$name.innerText = this.state.name;
   }
 
   onClick() {
-    if (this.state.status === AnswerStatus.NOT_USED) {
-      this.emit('click', this.state);
-    }
+    this.emit('click', this.state);
   }
 }

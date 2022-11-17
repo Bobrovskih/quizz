@@ -20,21 +20,33 @@
   }
 
   .answers,
-  .answer-info {
+  .selected-answer {
     width: 50%;
     border: 1px solid #ddd;
   }
+
+  .selected-answer {
+    padding: 16px;
+  }
+
 
   .next {
     width: 100%;
     border: 0;
     padding: 12px 16px;
     font-size: 18px;
-    background-color: #cfd8dc;
+    background-color: #008966;
+    color: white;
 
-    &:hover:not([disabled]) {
+    &:hover {
       cursor: pointer;
-      background-color: #b0bec5;
+      background-color: #008966;
+    }
+
+    &:disabled {
+      cursor: default;
+      background-color: #cfd8dc;
+      color: #717171;
     }
   }
 }
