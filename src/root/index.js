@@ -6,18 +6,17 @@ import template from './template.html';
 
 export class RootComponent extends Component {
   constructor() {
-    super({ state: {}, template, appendTo: '#app' });
+    super({ state: {}, template });
   }
 
   updateComponent(page) {
-    console.log('page', page);
     const component = new page.component();
-    document.querySelector('#router').innerHTML = '';
-    component.render('#router');
+    const $router = this.query('#router');
+    $router.innerHTML = '';
+    component.render($router);
   }
 
   onMounted() {
-    console.log('on mounted');
     this.updateComponent(router.getCurrentPage());
 
     router.onChange((page) => {

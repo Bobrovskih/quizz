@@ -2,7 +2,10 @@ export class Component {
   constructor(options) {
     this._state = options.state || {};
     this._template = options.template;
-    this._$root;
+    this._$parent;
+
+    this._templateDom = document.createElement('div');
+    this._templateDom.innerHTML = this._template;
   }
 
   set state(patch) {
@@ -17,19 +20,23 @@ export class Component {
   }
 
   render(appendTo) {
-    this._$root = document.querySelector(appendTo);
-    this._$root.innerHTML = this._template;
+    this._$parent = typeof appendTo === 'string'
+      ? document.querySelector(appendTo)
+      : appendTo;
+
+    this.$root = this._templateDom.children[0];
+    this._$parent.appendChild(this.$root);
 
     if (typeof this.onMounted === 'function') {
       this.onMounted();
     }
   }
-  
+
   query(selector) {
-    return this._$root.querySelector(selector);
+    return this.$root.querySelector(selector);
   }
 
   queryAll(selector) {
-    return this._$root.querySelectorAll(selector);
+   return this.$root.querySelectorAll(selector);
   }
 }

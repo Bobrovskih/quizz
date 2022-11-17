@@ -6,8 +6,12 @@
         display: flex;
         flex-flow: column;
 
-        & div + div {
+        & > div + div {
             margin-top: 20px;
         }
+    }
+
+    .questions {
+        display: flex;
     }
 }
