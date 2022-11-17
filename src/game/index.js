@@ -4,6 +4,8 @@ import './index.scss';
 import template from './template.html';
 import { birdsData } from '../constants/birds-data';
 import { WishComponent } from '../components/wish';
+import { AnswerComponent } from '../components/answer';
+import { AnswerStatus } from './constants';
 
 export class GamePage extends Component {
   constructor() {
@@ -11,6 +13,7 @@ export class GamePage extends Component {
     this.state = {
       questionIndex: 0,
       questionsAll: birdsData,
+      questions: birdsData[0],
       wishIndex: 0,
       wish: null,
     };
@@ -19,10 +22,14 @@ export class GamePage extends Component {
   onMounted() {
     this.$questions = this.query('.questions');
     this.$wish = this.query('.wish');
+    this.$answers = this.query('.answers');
     this.$next = this.query('.next');
 
     this.createQuestionButtons();
+
     this.createWish();
+    this.createAnswers();
+
     console.log('this.state', this.state);
   }
 
@@ -54,16 +61,32 @@ export class GamePage extends Component {
     this.wish.render(this.$wish);
   }
 
-  getCurrentQuestion() {
-    return this.state.questionsAll[this.state.questionIndex];
+  createAnswers() {
+    this.answers = [];
+    this.state.questions.data.forEach((answer, index) => {
+      const component = new AnswerComponent();
+      component.state = {
+        status: AnswerStatus.NOT_USED,
+        name: answer.name,
+        index,
+      };
+      component.on('click', (event) => {
+        // do check if answer == wish
+        component.state = {
+          status: AnswerStatus.OK,
+        };
+      });
+      component.render(this.$answers);
+      this.answers.push(component);
+    });
   }
 
   generateWish() {
-    const to = this.getCurrentQuestion().data.length;
+    const to = this.state.questions.data.length;
     return Math.floor(Math.random() * to);
   }
 
   getWish(wishIndex) {
-    return this.getCurrentQuestion().data[wishIndex];
+    return this.state.questions.data[wishIndex];
   }
 }

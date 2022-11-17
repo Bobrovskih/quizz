@@ -1,0 +1,30 @@
+.answer-component {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ddd;
+  }
+
+  .status {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+
+    &.not_used {
+      background-color: gray;
+    }
+    &.error {
+      background-color: red;
+    }
+    &.ok {
+      background-color: green;
+    }
+  }
+
+  .name {
+    margin-left: 20px;
+  }
+}

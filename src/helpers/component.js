@@ -3,6 +3,7 @@ export class Component {
     this._state = options.state || {};
     this._template = options.template;
     this._$parent;
+    this._listeners = [];
     this.isMounted = false;
 
     this._templateDom = document.createElement('div');
@@ -16,7 +17,7 @@ export class Component {
     };
 
     if (this.isMounted) {
-      this._callHook('onUpdate');
+      this._callHook('onUpdated');
     }
   }
 
@@ -50,6 +51,18 @@ export class Component {
 
   queryAll(selector) {
    return this.$root.querySelectorAll(selector);
+  }
+
+  on(name, fn) {
+    this._listeners.push({ name, fn });
+  }
+
+  emit(name, data) {
+    this._listeners.forEach((listener) => {
+      if (listener.name === name) {
+        listener.fn(data);
+      }
+    });
   }
 
   onMounted() { }

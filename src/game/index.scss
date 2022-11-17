@@ -15,6 +15,16 @@
     display: flex;
   }
 
+  .answers-wrapper {
+    display: flex;
+  }
+
+  .answers,
+  .answer-info {
+    width: 50%;
+    border: 1px solid #ddd;
+  }
+
   .next {
     width: 100%;
     border: 0;
