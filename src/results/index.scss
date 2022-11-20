@@ -1,3 +1,6 @@
+
+@import '../styles/vars.scss';
+
 $prime: #4cef5f;
 $second: #fff;
 
@@ -120,6 +123,21 @@ $second: #fff;
         transform: translate(0, 0);
         opacity: 0
       }
+    }
+  }
+
+  @media (max-width: $xs) {
+    .image {
+      display: none;
+    }
+
+    .card {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    #gooey-button {
+      font-size: 30px;
     }
   }
 }
