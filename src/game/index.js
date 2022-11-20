@@ -57,6 +57,13 @@ export class GamePage extends Component {
     });
   }
 
+  onDestroyed() {
+    this.wish.destroy();
+    this.questionButtons.forEach((questionButton) => questionButton.destroy());
+    this.selectedAnswer.destroy();
+    this.answers.forEach((answer) => answer.destroy());
+  }
+
   createQuestionButtons() {
     this.questionButtons = [];
 
