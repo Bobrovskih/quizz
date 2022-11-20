@@ -16,7 +16,7 @@ export class GamePage extends Component {
   constructor() {
     super({ template });
     this.state = {
-      questionIndex: 0,
+      questionIndex: 5,
       questionsAll: birdsData,
       questions: birdsData[0],
       wishIndex: 0,
@@ -34,6 +34,7 @@ export class GamePage extends Component {
     this.$answers = this.query('.answers');
     this.$selectedAnswer = this.query('.selected-answer');
     this.$next = this.query('.next');
+    this.$results = this.query('.results');
     this.$totalScore = this.query('.total-score');
 
     this.createQuestionButtons();
@@ -43,6 +44,10 @@ export class GamePage extends Component {
 
     this.$next.addEventListener('click', () => {
       this.onClickNextQuestion();
+    });
+
+    this.$results.addEventListener('click', () => {
+      router.setPage(ROUTER_PATHS.RESULTS);
     });
   }
 
@@ -158,6 +163,10 @@ export class GamePage extends Component {
     }
 
     if (!this.state.isGuessed) {
+      if (isGuessed) {
+        this.showResultsButton();
+      }
+
       this.state = {
         isGuessed,
       };
@@ -238,5 +247,10 @@ export class GamePage extends Component {
   
   destroyAnswers() {
     this.answers.forEach((answer) => answer.destroy());
+  }
+
+  showResultsButton() {
+    this.$next.classList.remove('show');
+    this.$results.classList.add('show');
   }
 }
