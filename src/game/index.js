@@ -8,6 +8,8 @@ import { AnswerComponent } from '../components/answer';
 import { AnswerStatus } from './constants';
 import { SelectedAnswerComponent } from '../components/selected-answer';
 import birdPlaceholder from '../assets/bird-placeholder.jpg';
+import errorMp3 from '../assets/error.mp3';
+import winMp3 from '../assets/win.mp3';
 
 export class GamePage extends Component {
   constructor() {
@@ -20,6 +22,8 @@ export class GamePage extends Component {
       wish: null,
       selectedIndex: null,
       isGuessed: false,
+      totalScore: 0,
+      score: 5,
     };
   }
 
@@ -29,18 +33,17 @@ export class GamePage extends Component {
     this.$answers = this.query('.answers');
     this.$selectedAnswer = this.query('.selected-answer');
     this.$next = this.query('.next');
+    this.$totalScore = this.query('.total-score');
 
     this.createQuestionButtons();
     this.createWish();
     this.createAnswers();
     this.createSelectedAnswerStub();
-
-    console.log('this.state', this.state);
   }
 
   onUpdated() {
-    console.log('onUpdated game');
     this.$next.toggleAttribute('disabled', !this.state.isGuessed);
+    this.$totalScore.innerText = 'Score: ' + this.state.totalScore;
   }
 
   createQuestionButtons() {
@@ -128,18 +131,61 @@ export class GamePage extends Component {
     this.resetSelectedAnswerStub();
     this.createSelectedAnswer();
 
+    if (isGuessed && !this.state.isGuessed) {
+      this.wish.state = {
+        name: this.state.wish.name,
+        image: this.state.wish.image,
+      };
+      this.addTotalScore();
+    }
+
+    if (answerComponent.state.status === AnswerStatus.NOT_USED && !this.state.isGuessed) {
+      this.minusScore();
+    }
+
     if (!this.state.isGuessed) {
       this.state = {
         isGuessed,
       };
+      
+      const status = isGuessed ? AnswerStatus.OK : AnswerStatus.FAILED;
 
       answerComponent.state = {
-        status: isGuessed ? AnswerStatus.OK : AnswerStatus.FAILED,
+        status,
+      };
+
+      this.playSound(status);
+
+    }
+  }
+
+  minusScore() {
+    let { score } = this.state;
+
+    if (score > 0) {
+      score -= 1;
+
+      this.state = {
+        score,
       };
     }
   }
 
+  addTotalScore() {
+    this.state = {
+      totalScore: this.state.totalScore + this.state.score,
+    };
+  }
+
   getIsGuessed() {
     return this.state.selectedIndex === this.state.wishIndex;
+  }
+
+  playSound(status) {
+    const src = status === AnswerStatus.FAILED ? errorMp3 : winMp3;
+    const audio = document.createElement('audio');
+    audio.src = src;
+    audio.play();
+    audio.volume = 0.5;
   }
 }

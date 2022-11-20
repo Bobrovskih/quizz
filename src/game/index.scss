@@ -11,8 +11,25 @@
     }
   }
 
+  .panel {
+    display: flex;
+  }
+
   .questions {
     display: flex;
+    flex-grow: 1;
+  }
+  
+  .total-score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #008966;
+    color: white;
+    padding: 0 12px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
   }
 
   .answers-wrapper {
@@ -28,7 +45,6 @@
   .selected-answer {
     padding: 16px;
   }
-
 
   .next {
     width: 100%;

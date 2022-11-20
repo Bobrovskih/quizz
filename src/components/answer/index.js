@@ -17,7 +17,6 @@ export class AnswerComponent extends Component {
   }
 
   onUpdated() {
-    console.log('onUpdated', this.state);
     this.$status.classList.add(this.state.status);
     this.$name.innerText = this.state.name;
   }

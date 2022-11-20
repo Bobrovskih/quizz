@@ -13,14 +13,13 @@ export class WishComponent extends Component {
     this.$name = this.query('.name');
     this.$player = this.query('.player');
 
-    this.$image.src = this.state.image;
-    this.$name.innerText = this.state.name;
-
+    this.onUpdated();
     this.createAudioPlayer();
   }
 
   onUpdated() {
-    console.log('wish on updated');
+    this.$image.src = this.state.image;
+    this.$name.innerText = this.state.name;
   }
 
   createAudioPlayer() {

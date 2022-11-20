@@ -8,14 +8,20 @@
     width: 100%;
   }
 
+  .image-wrapper {
+    display: flex;
+  }
+
   .image {
     width: 200px;
+    height: 200px;
     border-radius: 12px;
+    object-fit: cover;
   }
 
   .content {
     flex-grow: 1;
-    margin-left: 12px;
+    margin-left: 20px;
   }
 
   .name {
