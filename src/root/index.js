@@ -24,6 +24,8 @@ export class RootComponent extends Component {
     this.$navItems = this.queryAll('.nav-item');
     this.$router = this.query('#router');
     this.$lang = this.query('.lang');
+    this.$navStart = this.query('[data-route="start"]');
+    this.$navGame = this.query('[data-route="game"]');
 
     this.updateComponent(router.getCurrentPage());
 
@@ -38,6 +40,9 @@ export class RootComponent extends Component {
     });
 
     this.$lang.innerText = translate.getAvailable();
+
+    this.$navStart.innerText = translate.t('Главная');
+    this.$navGame.innerText = translate.t('Игра');
 
     this.registerEvents();
   }
