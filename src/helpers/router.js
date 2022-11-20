@@ -54,4 +54,4 @@ const config = [
   },
 ];
 
-export const router = new Router(config, config[2]);
+export const router = new Router(config, config[0]);

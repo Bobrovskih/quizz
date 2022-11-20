@@ -66,7 +66,9 @@ export class GamePage extends Component {
   onDestroyed() {
     this.wish.destroy();
     this.questionButtons.forEach((questionButton) => questionButton.destroy());
-    this.selectedAnswer.destroy();
+    if (this.selectedAnswer) {
+      this.selectedAnswer.destroy();
+    }
     this.answers.forEach((answer) => answer.destroy());
   }
 
@@ -144,7 +146,7 @@ export class GamePage extends Component {
 
   onAnswerClick(event) {
     this.state.selectedIndex = event.index;
-    const answerComponent  = this.answers[this.state.selectedIndex];
+    const answerComponent = this.answers[this.state.selectedIndex];
     const isGuessed = this.getIsGuessed();
 
     this.resetSelectedAnswerStub();
@@ -172,7 +174,7 @@ export class GamePage extends Component {
       this.state = {
         isGuessed,
       };
-      
+
       const status = isGuessed ? AnswerStatus.OK : AnswerStatus.FAILED;
 
       answerComponent.state = {
@@ -246,7 +248,7 @@ export class GamePage extends Component {
       name: '******',
     }
   }
-  
+
   destroyAnswers() {
     this.answers.forEach((answer) => answer.destroy());
   }

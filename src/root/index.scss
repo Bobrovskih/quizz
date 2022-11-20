@@ -11,6 +11,14 @@
     display: flex;
   }
 
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-family: cursive;
+  }
+
   #router {
     flex-grow: 1;
     display: flex;
@@ -23,9 +31,15 @@
     background-color: aliceblue;
     padding: 16px 20px;
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .logo {
+  .footer-item + .footer-item {
+    margin-left: 6px;
+  }
+
+  .course-logo {
     height: 64px;
   }
 
