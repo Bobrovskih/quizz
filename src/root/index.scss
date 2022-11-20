@@ -21,6 +21,18 @@
     font-family: cursive;
   }
 
+  .lang {
+    color: blue;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-left: auto;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
   #router {
     flex-grow: 1;
     display: flex;

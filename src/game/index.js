@@ -2,7 +2,6 @@ import { QuestionButtonComponent } from '../components/question-button';
 import { Component } from '../helpers/component';
 import './index.scss';
 import template from './template.html';
-import { birdsData } from '../constants/birds-data';
 import { WishComponent } from '../components/wish';
 import { AnswerComponent } from '../components/answer';
 import { AnswerStatus } from './constants';
@@ -12,12 +11,15 @@ import errorMp3 from '../assets/error.mp3';
 import winMp3 from '../assets/win.mp3';
 import { router, ROUTER_PATHS } from '../helpers/router';
 import { resultsService } from '../helpers/results';
+import { translate } from '../translate/service';
+
+const birdsData = translate.getBirdsData();
 
 export class GamePage extends Component {
   constructor() {
     super({ template });
     this.state = {
-      questionIndex: 5,
+      questionIndex: 0,
       questionsAll: birdsData,
       questions: birdsData[0],
       wishIndex: 0,
@@ -50,6 +52,9 @@ export class GamePage extends Component {
     this.$results.addEventListener('click', () => {
       router.setPage(ROUTER_PATHS.RESULTS);
     });
+
+    this.$next.innerText = translate.t('Следующий уровень');
+    this.$results.innerText = translate.t('Результаты');
   }
 
   onUpdated() {
@@ -119,8 +124,8 @@ export class GamePage extends Component {
 
   createSelectedAnswerStub() {
     this.$selectedAnswer.innerHTML = `
-      <div>Послушайте плеер.</div>
-      <div>Выберите птицу из списка.</div>
+      <div>${translate.t('Послушайте плеер.')}</div>
+      <div>${translate.t('Выберите птицу из списка.')}</div>
     `;
   }
 
@@ -153,7 +158,6 @@ export class GamePage extends Component {
     this.createSelectedAnswer();
 
     if (isGuessed && !this.state.isGuessed) {
-      console.log('this wish state = ')
       this.wish.state = {
         name: this.state.wish.name,
         image: this.state.wish.image,
@@ -167,7 +171,12 @@ export class GamePage extends Component {
 
     if (!this.state.isGuessed) {
       if (isGuessed) {
-        this.showResultsButton();
+        if (this.state.questionIndex === this.state.questionsAll.length - 1) {
+          console.log('show results button');
+          this.showResultsButton();
+        } else {
+          this.showNextButton();
+        }
         resultsService.data = { totalScore: this.state.totalScore };
       }
 
@@ -256,5 +265,10 @@ export class GamePage extends Component {
   showResultsButton() {
     this.$next.classList.remove('show');
     this.$results.classList.add('show');
+  }
+
+  showNextButton() {
+    this.$next.classList.add('show');
+    this.$results.classList.remove('show');
   }
 }

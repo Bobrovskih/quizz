@@ -2,6 +2,7 @@ import { Component } from '../helpers/component';
 import { router } from '../helpers/router';
 import './index.scss';
 import template from './template.html';
+import { translate } from '../translate/service';
 
 
 export class RootComponent extends Component {
@@ -22,6 +23,7 @@ export class RootComponent extends Component {
   onMounted() {
     this.$navItems = this.queryAll('.nav-item');
     this.$router = this.query('#router');
+    this.$lang = this.query('.lang');
 
     this.updateComponent(router.getCurrentPage());
 
@@ -29,6 +31,13 @@ export class RootComponent extends Component {
       this.updateComponent(page);
       this.updateActiveNav();
     });
+
+    this.$lang.addEventListener('click', () => {
+      translate.lang = translate.getAvailable();
+      window.location.reload();
+    });
+
+    this.$lang.innerText = translate.getAvailable();
 
     this.registerEvents();
   }
