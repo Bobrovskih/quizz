@@ -46,7 +46,7 @@ export class Component {
   }
 
   destroy() {
-    this._$parent.removeChild(this.$root);
+    this.$root.remove();
     this.isDestroyed = true;
     this._listeners = [];
     this._callHook('onDestroyed');

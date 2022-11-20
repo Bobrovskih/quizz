@@ -172,7 +172,6 @@ export class GamePage extends Component {
     if (!this.state.isGuessed) {
       if (isGuessed) {
         if (this.state.questionIndex === this.state.questionsAll.length - 1) {
-          console.log('show results button');
           this.showResultsButton();
         } else {
           this.showNextButton();

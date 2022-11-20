@@ -13,7 +13,6 @@ export class ResultsPage extends Component {
   }
 
   onMounted() {
-    console.log('on mounted');
     this.$score = this.query('.score');
     this.$text = this.query('.text');
     this.$repeat = this.query('.repeat');
