@@ -45,6 +45,13 @@ export class Component {
     this._callHook('onMounted');
   }
 
+  destroy() {
+    this._$parent.removeChild(this.$root);
+    this.isDestroyed = true;
+    this._listeners = [];
+    this._callHook('onDestroyed');
+  }
+
   query(selector) {
     return this.$root.querySelector(selector);
   }
@@ -67,6 +74,7 @@ export class Component {
 
   onMounted() { }
   onUpdated() { }
+  onDestroyed() { }
 
   _callHook(name) {
     if (typeof this[name] === 'function') {

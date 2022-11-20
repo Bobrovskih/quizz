@@ -18,6 +18,7 @@ export class WishComponent extends Component {
   }
 
   onUpdated() {
+    console.log('wish component onUpdated ');
     this.$image.src = this.state.image;
     this.$name.innerText = this.state.name;
   }

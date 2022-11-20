@@ -71,21 +71,17 @@ export class GamePage extends Component {
   }
 
   createWish() {
-    const wishIndex = this.generateWish();
+    const wishIndex = this.generateWish(this.state.questions.data.length);
     const wish = this.getWish(wishIndex);
+
+    this.wish = new WishComponent();
+    this.wish.state = this.getWishStatePlaceholder(wish.audio);
+    this.wish.render(this.$wish);
 
     this.state = {
       wishIndex,
       wish,
     };
-
-    this.wish = new WishComponent();
-    this.wish.state = {
-      audio: this.state.wish.audio,
-      image: birdPlaceholder,
-      name: '******',
-    };
-    this.wish.render(this.$wish);
   }
 
   createAnswers() {
@@ -124,9 +120,8 @@ export class GamePage extends Component {
     this.selectedAnswer.render(this.$selectedAnswer);
   }
 
-  generateWish() {
-    const to = this.state.questions.data.length;
-    return Math.floor(Math.random() * to);
+  generateWish(questionsLength) {
+    return Math.floor(Math.random() * questionsLength);
   }
 
   getWish(wishIndex) {
@@ -142,6 +137,7 @@ export class GamePage extends Component {
     this.createSelectedAnswer();
 
     if (isGuessed && !this.state.isGuessed) {
+      console.log('this wish state = ')
       this.wish.state = {
         name: this.state.wish.name,
         image: this.state.wish.image,
@@ -201,16 +197,38 @@ export class GamePage extends Component {
 
   onClickNextQuestion() {
     const questionIndex = this.state.questionIndex + 1;
-    const wishIndex = this.generateWish();
+    const questionsLength = birdsData[questionIndex].data.length;
+    const wishIndex = this.generateWish(questionsLength);
+    const wish = birdsData[questionIndex].data[wishIndex];
 
     this.state = {
       questionIndex: questionIndex,
       questions: birdsData[questionIndex],
       wishIndex: wishIndex,
-      wish: this.getWish(wishIndex),
+      wish: wish,
       selectedIndex: null,
       isGuessed: false,
       score: 5,
     };
+
+    this.wish.state = this.getWishStatePlaceholder(this.state.wish.audio);
+
+    this.destroyAnswers();
+    this.createAnswers();
+
+    this.selectedAnswer.destroy();
+    this.createSelectedAnswerStub();
+  }
+
+  getWishStatePlaceholder(audio) {
+    return {
+      audio,
+      image: birdPlaceholder,
+      name: '******',
+    }
+  }
+  
+  destroyAnswers() {
+    this.answers.forEach((answer) => answer.destroy());
   }
 }
