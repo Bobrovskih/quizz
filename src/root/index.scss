@@ -1,3 +1,5 @@
+$xs: 576px;
+
 .root-page {
   display: flex;
   flex-flow: column;
@@ -35,7 +37,7 @@
     align-items: center;
   }
 
-  .footer-item + .footer-item {
+  .footer-item+.footer-item {
     margin-left: 6px;
   }
 
@@ -98,5 +100,15 @@
 
   .category+.category {
     margin-left: 20px;
+  }
+
+  @media (max-width: $xs) {
+    .logo {
+      font-size: 20px;
+    }
+
+    nav {
+      margin-left: 10px;
+    }
   }
 }
