@@ -10,6 +10,7 @@ import { SelectedAnswerComponent } from '../components/selected-answer';
 import birdPlaceholder from '../assets/bird-placeholder.jpg';
 import errorMp3 from '../assets/error.mp3';
 import winMp3 from '../assets/win.mp3';
+import { router, ROUTER_PATHS } from '../helpers/router';
 
 export class GamePage extends Component {
   constructor() {

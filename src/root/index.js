@@ -10,21 +10,25 @@ export class RootComponent extends Component {
   }
 
   updateComponent(page) {
-    const component = new page.component();
-    const $router = this.query('#router');
-    $router.innerHTML = '';
-    component.render($router);
+    const prevComponent = this.component;
+
+    this.component = new page.component();
+    if (prevComponent) {
+      prevComponent.destroy();
+    }
+    this.component.render(this.$router);
   }
 
   onMounted() {
+    this.$navItems = this.queryAll('.nav-item');
+    this.$router = this.query('#router');
+
     this.updateComponent(router.getCurrentPage());
 
     router.onChange((page) => {
       this.updateComponent(page);
       this.updateActiveNav();
     });
-
-    this.$navItems = this.queryAll('.nav-item');
 
     this.registerEvents();
   }
