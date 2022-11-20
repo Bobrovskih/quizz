@@ -1,11 +1,18 @@
 .question-button {
-  background-color: #008966;
+  background-color: #00be8e;
   padding: 8px 12px;
   flex-grow: 1;
   color: white;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.active ~ & {
+    background-color: #008966;
+  }
 
   &.active {
-    background-color: #00be8e;
+    border: 6px solid #00796b;
   }
 }

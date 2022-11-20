@@ -39,11 +39,21 @@ export class GamePage extends Component {
     this.createWish();
     this.createAnswers();
     this.createSelectedAnswerStub();
+
+    this.$next.addEventListener('click', () => {
+      this.onClickNextQuestion();
+    });
   }
 
   onUpdated() {
     this.$next.toggleAttribute('disabled', !this.state.isGuessed);
     this.$totalScore.innerText = 'Score: ' + this.state.totalScore;
+
+    this.questionButtons.forEach((questionButton, index) => {
+      questionButton.state = {
+        isActive: this.state.questionIndex === index
+      }
+    });
   }
 
   createQuestionButtons() {
@@ -187,5 +197,20 @@ export class GamePage extends Component {
     audio.src = src;
     audio.play();
     audio.volume = 0.5;
+  }
+
+  onClickNextQuestion() {
+    const questionIndex = this.state.questionIndex + 1;
+    const wishIndex = this.generateWish();
+
+    this.state = {
+      questionIndex: questionIndex,
+      questions: birdsData[questionIndex],
+      wishIndex: wishIndex,
+      wish: this.getWish(wishIndex),
+      selectedIndex: null,
+      isGuessed: false,
+      score: 5,
+    };
   }
 }

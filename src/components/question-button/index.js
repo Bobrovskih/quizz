@@ -8,6 +8,10 @@ export class QuestionButtonComponent extends Component {
   }
 
   onMounted() {
+    this.onUpdated();
+  }
+
+  onUpdated() {
     this.$root.innerText = this.state.caption;
     this.$root.classList.toggle('active', this.state.isActive);
   }
