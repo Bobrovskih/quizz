@@ -1,3 +1,5 @@
+@import '../../styles/vars.scss';
+
 .wish-component {
   display: flex;
   padding: 16px;
@@ -26,5 +28,18 @@
 
   .player {
     margin-top: 10px;
+  }
+
+  @media (max-width: $xs) {
+    flex-flow: column;
+
+    .content {
+      margin-left: 0;
+      margin-top: 16px;
+    }
+
+    .image {
+       width: 100%;
+    }
   }
 }
