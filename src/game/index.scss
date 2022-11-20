@@ -53,10 +53,10 @@
     font-size: 18px;
     background-color: #008966;
     color: white;
-    display: none;
+    visibility: hidden;
 
     &.show {
-      display: initial;
+      visibility: visible;
     }
 
     &:hover {

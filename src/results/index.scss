@@ -1,0 +1,125 @@
+$prime: #4cef5f;
+$second: #fff;
+
+.results-component {
+  .card {
+    width: 400px;
+    height: 400px;
+    position: relative;
+
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    display: flex;
+    flex-flow: column;
+    box-shadow: 0 1.5em 2.5em -0.5em rgb(0 0 0 / 10%);
+    overflow: hidden;
+
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: $prime;
+    }
+  }
+
+  .repeat {
+    visibility: hidden;
+    padding: 8px 12px;
+    border: 0;
+    margin-top: auto;
+    cursor: pointer;
+
+    &.show {
+      visibility: visible;
+    }
+  }
+
+  .image {
+    height: 100%;
+    position: absolute;
+    top: -10px;
+    z-index: -1;
+    left: 60%;
+  }
+
+  .score {
+    font-size: 70px;
+  }
+
+
+  svg {
+    position: absolute;
+    top: -4000px;
+    left: -4000px;
+  }
+
+
+  #gooey-button {
+    padding: 1rem;
+    font-size: 2rem;
+    border: none;
+    color: $second;
+    filter: url('#gooey');
+    position: relative;
+    background-color: $prime;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    .bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+      .bubble {
+        background-color: $prime;
+        border-radius: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        z-index: -1;
+
+        @for $bubble from 1 through 10 {
+          &:nth-child(#{$bubble}) {
+            $size: 25px;
+            left: (random(90) + 10)+px;
+            width: $size;
+            height: $size;
+            animation: move-#{$bubble} #{3 + $bubble*0.02}s infinite;
+            animation-delay: #{$bubble*0.2}s;
+          }
+        }
+      }
+    }
+  }
+
+  @for $bubble from 1 through 10 {
+    @keyframes move-#{$bubble} {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      99% {
+        transform: translate(0, -(random(80) + 50)+px);
+      }
+
+      100% {
+        transform: translate(0, 0);
+        opacity: 0
+      }
+    }
+  }
+}

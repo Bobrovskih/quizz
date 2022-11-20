@@ -11,6 +11,7 @@ import birdPlaceholder from '../assets/bird-placeholder.jpg';
 import errorMp3 from '../assets/error.mp3';
 import winMp3 from '../assets/win.mp3';
 import { router, ROUTER_PATHS } from '../helpers/router';
+import { resultsService } from '../helpers/results';
 
 export class GamePage extends Component {
   constructor() {
@@ -165,6 +166,7 @@ export class GamePage extends Component {
     if (!this.state.isGuessed) {
       if (isGuessed) {
         this.showResultsButton();
+        resultsService.data = { totalScore: this.state.totalScore };
       }
 
       this.state = {
