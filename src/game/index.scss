@@ -28,6 +28,7 @@
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 500;
+    min-width: 120px;
   }
 
   .answers-wrapper {
@@ -81,6 +82,11 @@
     .answers,
     .selected-answer {
       width: 100%;
+    }
+
+    .total-score {
+      padding: 0 6px;
+      min-width: 100px;
     }
   }
 }
