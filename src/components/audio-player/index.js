@@ -3,7 +3,8 @@ import './index.scss';
 import template from './template.html';
 import playIcon from '../../assets/play-icon.svg';
 import pauseIcon from '../../assets/pause-icon.svg';
-import volumeIcon from '../../assets/volume-icon.svg';
+import volumeIcon from '../../assets/volume-icon.png';
+import volumeMuteIcon from '../../assets/volume-mute-icon.png';
 
 export class AudioPlayerComponent extends Component {
   constructor() {
@@ -62,6 +63,10 @@ export class AudioPlayerComponent extends Component {
     this.audio.addEventListener('volumechange', () => {
       this.$volume.value = parseInt(this.audio.volume * 100);
       this.updateVolumeText();
+
+      this.$volumeIcon.src = this.audio.volume === 0 
+        ? volumeMuteIcon
+        : volumeIcon;
     });
   }
 
