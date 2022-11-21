@@ -1,5 +1,41 @@
 .audio-player-component {
+  width: 100%;
+
   .player {
     width: 100%;
+    display: flex;
+  }
+
+  .play {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    border: 0;
+    background-color: white;
+
+    &:hover {
+      background-color: #ddd;
+    }
+
+    &:active {
+      background-color: darkgrey;
+    }
+  }
+
+  .play-icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info {
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .time-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column;
   }
 }

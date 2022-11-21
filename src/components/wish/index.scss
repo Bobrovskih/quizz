@@ -19,15 +19,16 @@
     width: 100%;
   }
 
+  .wish-player {
+    margin-top: 10px;
+    width: 50%;
+  }
+
   .name {
     padding-bottom: 20px;
     font-size: 28px;
     line-height: 36px;
     border-bottom: 1px solid #ddd;
-  }
-
-  .player {
-    margin-top: 10px;
   }
 
   @media (max-width: $xs) {

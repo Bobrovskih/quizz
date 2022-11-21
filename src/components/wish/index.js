@@ -11,7 +11,7 @@ export class WishComponent extends Component {
   onMounted() {
     this.$image = this.query('.image');
     this.$name = this.query('.name');
-    this.$player = this.query('.player');
+    this.$player = this.query('.wish-player');
 
     this.onUpdated();
     this.createAudioPlayer();
