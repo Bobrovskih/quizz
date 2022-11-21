@@ -4,14 +4,22 @@
   .player {
     width: 100%;
     display: flex;
+    flex-flow: column;
   }
 
-  .play {
+  .row {
+    display: flex;
+  }
+
+  .action-button {
     width: 30px;
     height: 30px;
     display: flex;
     border: 0;
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       background-color: #ddd;
@@ -37,5 +45,14 @@
     flex-grow: 1;
     display: flex;
     flex-flow: column;
+  }
+
+  .volume-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .current-volume {
+    font-size: 10px;
   }
 }

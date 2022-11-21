@@ -3,6 +3,7 @@ import './index.scss';
 import template from './template.html';
 import playIcon from '../../assets/play-icon.svg';
 import pauseIcon from '../../assets/pause-icon.svg';
+import volumeIcon from '../../assets/volume-icon.svg';
 
 export class AudioPlayerComponent extends Component {
   constructor() {
@@ -10,24 +11,35 @@ export class AudioPlayerComponent extends Component {
   }
 
   onMounted() {
+    this.$playButton = this.query('#play-button');
     this.$playIcon = this.query('.play-icon');
+    this.$volumeButton = this.query('#volume-button');
+    this.$volumeIcon = this.query('.volume-icon');
     this.$time = this.query('#time');
     this.$currenTime = this.query('.current-time');
     this.$totalTime = this.query('.total-time');
+    this.$volume = this.query('#volume');
+    this.$currentVolume = this.query('.current-volume');
 
     this.$playIcon.src = playIcon;
+    this.$volumeIcon.src = volumeIcon;
 
     this.audio = new Audio(this.state.src);
     this.isPlayed = false;
 
     this.$time.min = 0;
 
-    this.$playIcon.addEventListener('click', () => {
+    this.$volume.value = this.audio.volume * 100;
+
+    this.$playButton.addEventListener('click', () => {
       this.togglePlay();
     });
 
+    this.$volumeButton.addEventListener('click', () => {
+      this.audio.volume = this.audio.volume ? 0 : 0.5;
+    });
+
     this.audio.addEventListener('timeupdate', () => {
-      console.log('timeupdate');
       this.$time.value = this.audio.currentTime;
       this.$currenTime.innerText = this.formatTime(this.audio.currentTime);
     });
@@ -35,10 +47,21 @@ export class AudioPlayerComponent extends Component {
     this.audio.addEventListener('loadedmetadata', () => {
       this.$time.max = this.audio.duration;
       this.$totalTime.innerText = this.formatTime(this.audio.duration);
+      this.updateVolumeText();
     });
 
     this.$time.addEventListener('change', () => {
       this.audio.currentTime = parseInt(this.$time.value);
+    });
+
+    this.$volume.addEventListener('change', () => {
+      const value = parseInt(this.$volume.value) / 100;
+      this.audio.volume = value;
+    });
+
+    this.audio.addEventListener('volumechange', () => {
+      this.$volume.value = parseInt(this.audio.volume * 100);
+      this.updateVolumeText();
     });
   }
 
@@ -60,5 +83,9 @@ export class AudioPlayerComponent extends Component {
     const seconds = String(s).padStart(2, '0');
 
     return `${minutes}:${seconds}`;
+  }
+
+  updateVolumeText() {
+    this.$currentVolume.innerText = Math.floor(this.audio.volume * 100) + '%';
   }
 }
